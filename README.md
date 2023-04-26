@@ -1,4 +1,4 @@
-# newsly
+# Newsly
 News CLI which can draw from:
  - Y-Combinator (default option)
  - Al-Jazeera
