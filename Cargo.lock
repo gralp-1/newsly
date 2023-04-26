@@ -15,6 +15,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "async-trait"
+version = "0.1.68"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b9ccdd8f2a161be9bd5c023df56f1b2a0bd1d83872ae53b71a84a12c9bf6e842"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 2.0.15",
+]
+
+[[package]]
 name = "autocfg"
 version = "1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -657,9 +668,11 @@ checksum = "e4a24736216ec316047a1fc4252e27dabb04218aa4a3f37c6e7ddbf1f9782b54"
 name = "newsly"
 version = "0.1.0"
 dependencies = [
+ "async-trait",
  "crossterm 0.26.1",
  "reqwest",
  "scraper",
+ "simple_tables",
  "tabled",
  "tokio",
  "tui",
@@ -1252,6 +1265,34 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d8229b473baa5980ac72ef434c4415e70c4b5e71b423043adb4ba059f89c99a1"
 dependencies = [
  "libc",
+]
+
+[[package]]
+name = "simple_tables"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a1248aa113774f3193c5ad090ee8a429005d32fcdb722f114dce7a74356cce4c"
+dependencies = [
+ "simple_tables-core",
+ "simple_tables-derive",
+]
+
+[[package]]
+name = "simple_tables-core"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3e7d16173bdde70a696f9eaf1b49bb38f41ea7445c800ab46e6d8ac08c157551"
+
+[[package]]
+name = "simple_tables-derive"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "add2dda7ba63477aabd1ff151a8f570ebbea9c12444d07bf6ec1a7c5858bd0e7"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "simple_tables-core",
+ "syn 1.0.109",
 ]
 
 [[package]]
