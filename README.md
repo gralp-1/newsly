@@ -4,6 +4,7 @@ News CLI which can draw from:
  - Al-Jazeera
 
 Working on:
+ - [ ] Full TUI with panes 'n stuff
  - [ ] Mixing top stories
  - [ ] The Independent
  - [ ] The Guardian
