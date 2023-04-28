@@ -1,4 +1,4 @@
-use crate::news_scraper::{NewsSource, NewsItem};
+use crate::news_scraper::{NewsItem, NewsSource};
 use async_trait::async_trait;
 use scraper::{Html, Selector};
 
@@ -18,14 +18,20 @@ impl NewsSource for Combinator {
             // Link
             let link_selector = Selector::parse(".title a").unwrap();
             let link_element = element.select(&link_selector).next().unwrap();
+            //TODO: some links are relative, check for this and add base url
             let url = link_element.value().attr("href").unwrap().to_string();
+            
+            if url.starts_with("item?id=") {
+                continue;
+            }
 
             // Title
             let title = link_element.inner_html();
 
             news.push(NewsItem {
-                title,
-                url,
+                Source: "Hacker News".to_string(),
+                Title: title,
+                Url: url,
             });
         }
         Ok(news)

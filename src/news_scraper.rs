@@ -1,15 +1,14 @@
 use async_trait::async_trait;
-use simple_tables::macros::{table_row, table};
+use simple_tables::macros::{table, table_row};
 
 #[table_row]
 pub struct NewsItem {
-    pub title: String,
-    pub url: String,
+    pub Source: String,
+    pub Title: String,
+    pub Url: String,
 }
 #[table(rows=NewsItem)]
 pub struct News {}
-
-
 
 #[async_trait]
 pub trait NewsSource {

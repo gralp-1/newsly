@@ -1,7 +1,6 @@
+use crate::news_scraper::{NewsItem, NewsSource};
 use async_trait::async_trait;
 use scraper::{Html, Selector};
-use crate::news_scraper::{NewsSource, NewsItem};
-
 
 pub struct AlJazeera {}
 
@@ -19,8 +18,7 @@ impl NewsSource for AlJazeera {
         for element in document.select(&selector) {
             // Link
             // get the href attribute
-            let url =
-                base_url.to_owned() + &element.value().attr("href").unwrap().to_string();
+            let url = base_url.to_owned() + &element.value().attr("href").unwrap().to_string();
 
             // get the element span
             let title_selector = Selector::parse("span").unwrap();
@@ -30,9 +28,12 @@ impl NewsSource for AlJazeera {
             // clean up url and title so there's no ending whitespace
             let url = url.trim().to_string();
             let title = title.trim().to_string();
-            
 
-            news.push(NewsItem { title, url });
+            news.push(NewsItem {
+                Source: "Al-Jazeera".to_string(),
+                Title: title,
+                Url: url,
+            });
         }
         Ok(news)
     }
