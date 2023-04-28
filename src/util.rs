@@ -19,20 +19,3 @@ fn clickable_link(news_item: &NewsItem) -> String {
         news_item.Url, news_item.Title
     )
 }
-
-pub fn custom_table(news_vec: &Vec<NewsItem>) -> String {
-    let mut table = String::new();
-    let mut longest_source = 0;
-    for news_item in news_vec {
-        // get the longest source name
-        if news_item.Source.len() > longest_source {
-            longest_source = news_item.Source.len();
-        }
-    }
-    // now we have the longest source name, we can format the table
-    for news_item in news_vec {
-        let source = format!("{:width$}", news_item.Source, width = longest_source);
-        table.push_str(&format!("{} | {}\n", source, clickable_link(news_item)));
-    }
-    table
-}

@@ -1,12 +1,12 @@
+#![feature(async_closure)]
 mod news_scraper;
 mod sources;
-mod tui;
 mod util;
 
-use cursive::{views::{Dialog, TextView}, view::Margins, theme::Theme};
+use cursive::{views::{Dialog, TextView}, view::{Margins, Resizable}, theme::Theme, align::HAlign};
+use news_scraper::NewsItem;
 use rand::seq::SliceRandom;
 use simple_tables::Table;
-use util::custom_table;
 
 use crate::{
     news_scraper::{News, NewsSource},
@@ -16,32 +16,32 @@ use crate::{
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    // print args
-    let mut siv = cursive::default();
-    // Starts the event loop.
-
-    let mut news: Vec<news_scraper::NewsItem>;
-    let aj_news = AlJazeera {}.get_news().await?;
-    let ycomb_news = Combinator {}.get_news().await?;
-    // news is aj_news + ycomb_news
-    news = aj_news;
-    news.extend(ycomb_news);
-    // shuffle news
+    // NEWS STUFF
+    let mut news: Vec<NewsItem> = Vec::new();
+    // TODO: find a better way of doing this
+    let sources: Vec<Box<dyn NewsSource>> = vec![Box::new(AlJazeera{}), Box::new(Combinator{})];
+    for source in sources {
+        news.extend(source.get_news().await?.to_vec());
+    }
     news.shuffle(&mut rand::thread_rng());
-
-    // clean news
     clean_news_vec(&mut news);
 
+    // UPDATE STUFF
+    // start a new thread which updates news every 5 minutes
+
+    // TUI STUFF
+    let mut siv = cursive::default();
     siv.add_layer(
         Dialog::new()
         .content(TextView::new(News::from_vec(&news).to_string()))
         .title("News")
-        .padding(Margins::lrtb(1, 1, 1, 1))
     );
     let mut theme = Theme::default();
-    theme.shadow = false;
+    theme.shadow = true;
     theme.borders = cursive::theme::BorderStyle::Simple;
     siv.set_theme(theme);
     siv.run();
+
+
     Ok(())
 }
