@@ -5,6 +5,7 @@ News CLI which can draw from:
 
 Technical To-Do:
  - [ ] Sort out `NewsSource` struct so it contains relevant info (mostly just name of news source)
+
 Feature To-Do:
  - [x] Full TUI with panes 'n stuff
  - [x] Mixing top stories
