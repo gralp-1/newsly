@@ -20,7 +20,7 @@ impl NewsSource for Combinator {
             let link_element = element.select(&link_selector).next().unwrap();
             //TODO: some links are relative, check for this and add base url
             let url = link_element.value().attr("href").unwrap().to_string();
-            
+
             if url.starts_with("item?id=") {
                 continue;
             }
