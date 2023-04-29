@@ -3,9 +3,11 @@ name = "newsly"
 version = "0.1.0"
 edition = "2021"
 license-file = "LICENSE"
-keywords = ["news"]
+description = "A command line utility to read news from various sources and collect it into a single place."
+authors = ["gralp-1"]
 categories = ["command-line-utilities"]
-homepage = "https://github.com/gralp-1/newsly"
+repository = "https://github.com/gralp-1/newsly"
+readme = "README.md"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
