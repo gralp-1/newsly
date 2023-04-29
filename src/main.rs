@@ -1,4 +1,4 @@
-#![feature(async_closure)]
+#[allow(non_snake_case)]
 mod news_scraper;
 mod sources;
 mod util;
