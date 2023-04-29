@@ -10,7 +10,7 @@ use cursive::{
 use news_scraper::NewsItem;
 use rand::seq::SliceRandom;
 use simple_tables::Table;
-use sources::guardian::Guardian;
+use sources::{guardian::Guardian, independent::Independent};
 
 use crate::{
     news_scraper::{News, NewsSource},
@@ -25,7 +25,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // TODO: find a better way of doing this
     set_news(&mut news).await?;
     // only keep the first 10 news items
-    news.truncate(30);
 
     // UPDATE STUFF
     // start a new thread which updates news every minute with tokio
@@ -48,11 +47,14 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 }
 
 async fn set_news(news: &mut Vec<NewsItem>) -> Result<(), Box<dyn std::error::Error>> {
-    let sources: Vec<Box<dyn NewsSource>> = vec![Box::new(AlJazeera {}), Box::new(Combinator {}), Box::new(Guardian {})];
+    let sources: Vec<Box<dyn NewsSource>> = vec![Box::new(AlJazeera {}), Box::new(Combinator {}), Box::new(Guardian {}), Box::new(Independent{})];
     for source in sources {
-        news.extend(source.get_news().await?.to_vec());
+        let mut source_news = source.get_news().await?;
+        source_news.truncate(15);
+        news.extend(source_news);
     }
     news.shuffle(&mut rand::thread_rng());
+    news.truncate(35);
     clean_news_vec(news);
     Ok(())
 }

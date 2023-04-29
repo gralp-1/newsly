@@ -3,6 +3,7 @@ use simple_tables::macros::{table, table_row};
 
 #[table_row]
 pub struct NewsItem {
+    // This is capitalised because it's also the table header
     pub Source: String,
     pub Title: String,
     pub Url: String,
